@@ -13,6 +13,11 @@ class UnprocessableEntityError(Exception):
 class NotFoundError(Exception):
     pass
 
+class AccessDeniedError(Exception):
+    pass
+
+class PointAPIError(Exception):
+    pass
 
 class ConflictError(Exception):
     pass

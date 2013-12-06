@@ -24,9 +24,8 @@ def request(method, url, auth, data=None):
     headers = {"Accept":"application/json", "Content-Type":"application/json",
             "Authorization":"Basic " + auth_s}
 
-    response, content = httplib2.Http(timeout=10, 
-        ca_certs="/etc/ssl/certs").request(uri=uri_f, method=method.upper(), 
-        body=data, headers=headers)
+    response, content = httplib2.Http(timeout=10).request(uri=uri_f, 
+        method=method.upper(), body=data, headers=headers)
     
     if response.status == 403:
         raise AccessDeniedError("Access forbidden")

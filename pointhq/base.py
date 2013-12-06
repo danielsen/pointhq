@@ -36,15 +36,16 @@ class BaseMember(BaseResourse):
 
     def update(self, **kwargs):
         response = self.request('put', kwargs)
-        if response.status == 200:
+        if response.status == 200 or response.status == 202:
             return
         if response.status == 422:
-            raise exceptions.UnprocessableEntityError(json.loads(response.content))
+            raise exceptions.UnprocessableEntityError(json.loads(
+                    response.content))
         raise exceptions.UnknownError(response)
 
     def delete(self):
         response = self.request('delete')
-        if response.status == 200:
+        if response.status == 200 or response.status == 202:
             return
         if response.status == 409:
             raise exceptions.ConflictError
@@ -71,5 +72,6 @@ class BaseCollection(BaseResourse):
         if response.status == 201:
             return json.loads(response.content)
         if response.status == 422:
-            raise exceptions.UnprocessableEntityError(json.loads(response.content))
+            raise exceptions.UnprocessableEntityError(json.loads(
+                    response.content))
         raise exceptions.UnknownError(response)
